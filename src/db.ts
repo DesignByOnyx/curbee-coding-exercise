@@ -4,7 +4,7 @@ import DataStore from 'nedb';
 
 /**
  * Creates a store for type T and returns the store with async methods.
- * @param type
+ * @param type the type of data to be stored - preferably a lower-skewer-case string
  */
 const createStore = <T>(type: string) => {
    const env = process.env.NODE_ENV || 'development';
@@ -20,7 +20,7 @@ const createStore = <T>(type: string) => {
             resolve(doc);
          });
       }),
-      findAsync: (query: object) => new Promise<T[]>((resolve, reject) => {
+      findAsync: (query: object = {}) => new Promise<T[]>((resolve, reject) => {
          db.find(query).exec((err, docs) => {
             if (err) return reject(err);
             resolve(docs);

@@ -1,12 +1,12 @@
 import { z } from "zod";
-import { Location } from "./location.schema.js";
-import { Customer } from "./customer.schema.js";
-import { Vehicle } from "./vehicle.schema.js";
+import { Location, LocationCreate } from "./location.schema.js";
+import { Customer, CustomerCreate } from "./customer.schema.js";
+import { Vehicle, VehicleCreate } from "./vehicle.schema.js";
 
 /** Represents an appointment without any of the relational data fields */
 const BaseAppointment = z.object({
-   appointmentStartTime: z.date(),
-   appointmentEndTime: z.date(),
+   appointmentStartTime: z.coerce.date(),
+   appointmentEndTime: z.coerce.date(),
 });
 
 /** Schema used for creating an appointment with REFERENCES to existing details (customer, vehicle, etc) */
@@ -27,9 +27,9 @@ const Appointment = AppointmentCreate.extend({
  * The related data will be created in the DB and then the appointment will be created.
  */
 const AppointmentWithDetailsCreate = BaseAppointment.extend({
-   location: Location,
-   customer: Customer,
-   vehicle: Vehicle,
+   location: LocationCreate,
+   customer: CustomerCreate,
+   vehicle: VehicleCreate,
  });
 
 /** Schema for an Appointment with populated details */
