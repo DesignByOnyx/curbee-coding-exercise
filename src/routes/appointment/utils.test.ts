@@ -89,6 +89,7 @@ describe('Appointment Utils', () => {
          await expect(ensureNoExistingConflicts(date(9, 30), date(10, 30))).rejects.toThrow();
          await expect(ensureNoExistingConflicts(date(13, 0), date(15, 0))).rejects.toThrow();
          await expect(ensureNoExistingConflicts(date(12, 30), date(17, 0))).rejects.toThrow();
+         await expect(ensureNoExistingConflicts(date(14, 30), date(15, 0))).rejects.toThrow();
       });
    });
 });

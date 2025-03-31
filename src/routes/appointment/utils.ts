@@ -52,6 +52,10 @@ const ensureNoExistingConflicts = async (startTime: Date, endTime: Date) => {
          { 
             appointmentEndTime: { $gt: startTime, $lt: endTime },
          },
+         { 
+            appointmentStartTime: { $lt: startTime },
+            appointmentEndTime: { $gt: endTime },
+         },
       ]
    });
    
